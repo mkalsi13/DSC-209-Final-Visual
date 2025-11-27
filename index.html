@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>From Players to Teams: Performance Trends and Aging Patterns in Baseball History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- ===========================
+         PAGE HEADER
+    ============================ -->
+    <header id="page-header">
+      <h1>From Players to Teams: Performance Trends and Aging Patterns in Baseball History</h1>
+      <p>
+        This project explores how age and experience shape performance in Major League Baseball,
+        from individual stars to entire teams. We first compare top hitters and pitchers across
+        eras, then zoom out to see how a team’s average age relates to its overall success.
+      </p>
+    </header>
+
+    <!-- ===========================
+         SECTION 1: PLAYER ERA VISUAL
+    ============================ -->
+    <section id="player-section" class="panel-group">
+      <div class="panel">
+        <div class="controls-bar">
+          <div class="toggle-group">
+            <button id="view-hitters" class="toggle-btn active">Hitters</button>
+            <button id="view-pitchers" class="toggle-btn">Pitchers</button>
+          </div>
+
+          <div class="toggle-group era-group">
+            <button id="era-all" class="toggle-btn era-active">All</button>
+            <button id="era-expansion" class="toggle-btn">Expansion</button>
+            <button id="era-steroid" class="toggle-btn">Steroid</button>
+            <button id="era-modern" class="toggle-btn">Modern</button>
+          </div>
+        </div>
+
+        <h2 id="player-scatter-title"></h2>
+
+        <div id="player-scatter-layout">
+          <div id="player-scatter-container"></div>
+          <div id="player-scatter-legend"></div>
+          <p class="empty-msg" id="player-empty-msg" style="display:none;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SECTION 2: TEAM AGE VISUAL
+    ============================ -->
+    <section id="team-section" class="panel-group">
+      <div class="panel">
+        <h2>Do Older Baseball Teams Perform Better?</h2>
+
+        <p>
+          Here we look at performance from the team level. Using the Baseball Databank from
+          1970–2015, we estimate each team’s <strong>average roster age</strong> (weighted by
+          plate appearances) and compare it to two outcome metrics:
+          <strong>runs per game</strong> and <strong>win percentage</strong>.
+        </p>
+
+        <div class="controls-bar" id="team-controls">
+          <div class="toggle-group">
+            <span><strong>Metric:</strong></span>
+            <button id="btn-runs" class="toggle-btn active">Runs per Game</button>
+            <button id="btn-wins" class="toggle-btn">Win %</button>
+          </div>
+
+          <div class="toggle-group">
+            <label for="era-select"><strong>Era:</strong></label>
+            <select id="era-select">
+              <option value="all">All Seasons (1970–2015)</option>
+              <option value="1970-1989">1970–1989</option>
+              <option value="1990-2009">1990–2009</option>
+              <option value="2010-2015">2010–2015</option>
+            </select>
+          </div>
+        </div>
+
+        <figure>
+          <svg id="team-viz" width="1000" height="580"></svg>
+          <figcaption>
+            Each point represents the average performance of all teams whose roster age rounds
+            to that value. The highlighted point marks where teams tend to peak for the selected metric.
+          </figcaption>
+        </figure>
+
+        <h3>What the results show</h3>
+        <p>
+          Across all MLB seasons from 1970–2015, team performance rises as rosters get older.
+          Offensively, teams tend to score more runs per game as their average age moves from the mid-20s
+          into the late 20s. The curve reaches its highest point at roughly
+          <strong>age 32</strong>, where teams produce the most runs on average. After age 32, offensive
+          performance declines.
+        </p>
+        <p>
+          When looking at win percentage, the pattern is similar. Younger teams win less often, while
+          teams with average ages in the late 20s to early 30s win the most games. After about
+          <strong>age 33</strong>, older rosters begin to decline in win rate. Overall, the data suggests
+          that teams built around players in their late 20s to early 30s are in their collective “prime,”
+          balancing physical ability and experience.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SECTION 3: INITIAL WRITE-UP
+    ============================ -->
+    <section id="writeup-section" class="panel-group">
+      <div class="panel">
+        <h2>Initial Prototype Write-Up</h2>
+
+        <h3>1. What have we done so far?</h3>
+        <p>
+          We have built the core dataset, cleaned it, and created two interactive visualizations that
+          connect age to performance in baseball. For players, we aggregate season-level stats from the
+          Baseball Databank to compare top hitters and pitchers across eras, using metrics like OPS,
+          home run rate, ERA, and K/BB. For teams, we compute weighted average roster ages and merge
+          those with runs per game and win percentage. Using D3, we developed explorable visuals with
+          era and metric controls, interactive tooltips, and a peak-age annotation. We also wrote
+          narrative text to explain the main patterns visible in each chart.
+        </p>
+
+        <h3>2. What will be the most challenging part and why?</h3>
+        <p>
+          The most challenging part of the project will be designing the final interactive experience so
+          that it feels intuitive and tells a clear, cohesive story. Because this is an explorable
+          explanation, we need to strike the right balance between letting users freely explore the data
+          and guiding them toward the main insights without overwhelming them. Another challenge is
+          keeping the visuals understandable for people who may not be familiar with baseball while still
+          preserving the meaning of the underlying metrics. Choosing which supporting visuals to include,
+          and how to connect them so the narrative flows naturally, will require careful design,
+          thoughtful layout decisions, and clear communication.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- tooltips for each visual -->
+  <div id="tooltip"></div>
+  <div id="team-tooltip"></div>
+</body>
+</html>
